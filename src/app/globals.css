@@ -1,8 +1,46 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ==========================================================================
+     BASE CORE PALETTE (Your 6 Initial Colors)
+     ========================================================================== */
+  --color-palladian: #EEE9DF;
+  --color-oatmeal: #C9C1B1;
+  --color-blue-fantastic: #2C3B4D;
+  --color-burning-flame: #FFB162;
+  --color-truffle-trouble: #A35139;
+  --color-abyssal-anchorfish: #1B2632;
+
+  /* ==========================================================================
+     EXPANDED PALETTE (~20 Varied Tones & Accents)
+     ========================================================================== */
+  /* Light Neutral Shades (Palladian & Oatmeal derivatives) */
+  --color-palladian-light: #F7F4EF;
+  --color-palladian-dark: #E0D7C7;
+  --color-oatmeal-light: #DDD7CB;
+  --color-oatmeal-dark: #A89F8C;
+
+  /* Dark Blue & Slate Shades (Blue Fantastic & Abyssal derivatives) */
+  --color-blue-fantastic-light: #42556E;
+  --color-blue-fantastic-dark: #1E2B3A;
+  --color-abyssal-dark: #111A24;
+  --color-abyssal-light: #283748;
+
+  /* Warm Accent & Highlight Tones (Burning Flame & Truffle derivatives) */
+  --color-burning-flame-light: #FFC994;
+  --color-burning-flame-dark: #E69542;
+  --color-truffle-light: #C46D53;
+  --color-truffle-dark: #7A3B29;
+
+  /* Additional Complementary & Semantic Tones */
+  --color-warm-cream: #FAF8F5;
+  --color-gold-accent: #D4A359;
+  --color-slate-overlay: rgba(27, 38, 50, 0.85);
+  --color-surface-card: #F4F0E8;
+
+  /* Default Theme Mapping */
+  --background: var(--color-palladian-light);
+  --foreground: var(--color-abyssal-anchorfish);
 }
 
 @theme inline {
@@ -10,13 +48,35 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Register Custom Colors into Tailwind Utility Classes */
+  --color-palladian: var(--color-palladian);
+  --color-palladian-light: var(--color-palladian-light);
+  --color-palladian-dark: var(--color-palladian-dark);
+
+  --color-oatmeal: var(--color-oatmeal);
+  --color-oatmeal-light: var(--color-oatmeal-light);
+  --color-oatmeal-dark: var(--color-oatmeal-dark);
+
+  --color-blue-fantastic: var(--color-blue-fantastic);
+  --color-blue-fantastic-light: var(--color-blue-fantastic-light);
+  --color-blue-fantastic-dark: var(--color-blue-fantastic-dark);
+
+  --color-burning-flame: var(--color-burning-flame);
+  --color-burning-flame-light: var(--color-burning-flame-light);
+  --color-burning-flame-dark: var(--color-burning-flame-dark);
+
+  --color-truffle: var(--color-truffle-trouble);
+  --color-truffle-light: var(--color-truffle-light);
+  --color-truffle-dark: var(--color-truffle-dark);
+
+  --color-abyssal: var(--color-abyssal-anchorfish);
+  --color-abyssal-light: var(--color-abyssal-light);
+  --color-abyssal-dark: var(--color-abyssal-dark);
+
+  --color-warm-cream: var(--color-warm-cream);
+  --color-gold-accent: var(--color-gold-accent);
+  --color-surface-card: var(--color-surface-card);
 }
 
 body {
