@@ -65,7 +65,11 @@ export default function Footer({
   };
 
   return (
-    <footer className="relative px-4 pb-8 pt-2 text-palladian sm:px-6 sm:pt-2 lg:px-8">
+    <footer className="relative isolate px-4 pb-8 pt-2 text-palladian sm:px-6 sm:pt-2 lg:px-8">
+      <div className="absolute -left-48 -top-24 size-[40rem] rounded-full bg-blue-fantastic-light/30 blur-[130px]" />
+      <div className="absolute -bottom-32 -right-40 size-[42rem] rounded-full bg-truffle/25 blur-[130px]" />
+      <div className="absolute bottom-0 left-1/4 size-[22rem] rounded-full bg-burning-flame/12 blur-[110px]" />
+
       <style>{`
         @keyframes ft-float { 0%,100% { translate: 0 0; } 50% { translate: 0 -6px; } }
       `}</style>

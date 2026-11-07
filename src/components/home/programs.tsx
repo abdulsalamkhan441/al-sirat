@@ -113,41 +113,9 @@ export default function ServicesSection() {
   return (
     <section
       aria-labelledby="services-heading"
-      className="relative isolate overflow-hidden bg-linear-to-b from-abyssal-dark via-abyssal to-abyssal-dark py-20 text-palladian sm:py-24 lg:py-28"
+      className="relative isolate  py-20 text-palladian sm:py-24 lg:py-28"
     >
-      {/* ---------- Background ---------- */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
-        <svg
-          className="absolute inset-0 size-full text-palladian opacity-[0.06]"
-          style={{
-            maskImage:
-              "radial-gradient(ellipse 80% 70% at 50% 80%, black, transparent 78%)",
-            WebkitMaskImage:
-              "radial-gradient(ellipse 80% 70% at 50% 80%, black, transparent 78%)",
-          }}
-        >
-          <defs>
-            <pattern
-              id="services-star-lattice"
-              width="96"
-              height="96"
-              patternUnits="userSpaceOnUse"
-            >
-              <g fill="none" stroke="currentColor" strokeWidth="1">
-                <rect x="28" y="28" width="40" height="40" />
-                <rect x="28" y="28" width="40" height="40" transform="rotate(45 48 48)" />
-                <path d="M48 0V19.7M48 76.3V96M0 48H19.7M76.3 48H96" />
-                <path d="M0 -7L7 0L0 7L-7 0Z" />
-                <path d="M96 -7L103 0L96 7L89 0Z" />
-                <path d="M0 89L7 96L0 103L-7 96Z" />
-                <path d="M96 89L103 96L96 103L89 96Z" />
-              </g>
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#services-star-lattice)" />
-        </svg>
-
-        {/* Arches rising behind the heading */}
+      {/* Arches rising behind the heading */}
         <svg
           viewBox="0 0 1000 520"
           fill="none"
@@ -163,7 +131,6 @@ export default function ServicesSection() {
         <div className="absolute -left-32 top-1/3 size-[30rem] rounded-full bg-blue-fantastic-light/20 blur-3xl" />
         <div className="absolute -right-32 bottom-0 size-[30rem] rounded-full bg-blue-fantastic-light/20 blur-3xl" />
         <div className="absolute bottom-10 left-1/2 h-64 w-[40rem] max-w-full -translate-x-1/2 rounded-full bg-burning-flame/10 blur-3xl" />
-      </div>
 
       <motion.div
         variants={container}

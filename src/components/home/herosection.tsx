@@ -147,7 +147,7 @@ return (
         onMouseLeave={() => setPaused(false)}
         onFocus={() => setPaused(true)}
         onBlur={() => setPaused(false)}
-        className="relative isolate flex min-h-[calc(100svh-2.5rem)] w-full flex-col overflow-hidden bg-abyssal text-palladian"
+        className="relative isolate flex min-h-[calc(100svh-2.5rem)] w-full flex-col overflow-hidden text-palladian"
       >
         {/* ---------- Background slides + overlays ---------- */}
         <div className="absolute inset-0 -z-10" aria-hidden="true">

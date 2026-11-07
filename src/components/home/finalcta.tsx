@@ -51,7 +51,7 @@ export default function CTASection() {
         mx.set(50);
         my.set(60);
       }}
-      className="relative isolate overflow-hidden bg-linear-to-b from-abyssal-dark via-abyssal to-abyssal-dark px-4 py-16 text-palladian sm:px-6 sm:py-20 lg:px-8 lg:py-32"
+      className="relative isolate px-4 py-16 text-palladian sm:px-6 sm:py-20 lg:px-8 lg:py-32"
     >
       {/* ---------- Section background (same lattice + diagonal light) ---------- */}
       <div

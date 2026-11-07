@@ -258,33 +258,9 @@ export default function ContactSection({
     <section
       id="contact"
       aria-labelledby="contact-heading"
-      className="relative isolate overflow-hidden bg-linear-to-b from-abyssal-dark via-abyssal to-abyssal-dark py-20 text-palladian sm:py-24 lg:py-28"
+      className="relative isolate py-20 text-palladian sm:py-24 lg:py-28"
     >
-      {/* ---------- Background (same lattice + diagonal light as the other sections) ---------- */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
-        <svg
-          className="absolute inset-0 size-full text-palladian opacity-[0.05]"
-          style={{
-            maskImage: "radial-gradient(ellipse 80% 70% at 50% 50%, black, transparent 78%)",
-            WebkitMaskImage: "radial-gradient(ellipse 80% 70% at 50% 50%, black, transparent 78%)",
-          }}
-        >
-          <defs>
-            <pattern id="contact-star-lattice" width="96" height="96" patternUnits="userSpaceOnUse">
-              <g fill="none" stroke="currentColor" strokeWidth="1">
-                <rect x="28" y="28" width="40" height="40" />
-                <rect x="28" y="28" width="40" height="40" transform="rotate(45 48 48)" />
-                <path d="M48 0V19.7M48 76.3V96M0 48H19.7M76.3 48H96" />
-                <path d="M0 -7L7 0L0 7L-7 0Z" />
-                <path d="M96 -7L103 0L96 7L89 0Z" />
-                <path d="M0 89L7 96L0 103L-7 96Z" />
-                <path d="M96 89L103 96L96 103L89 96Z" />
-              </g>
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#contact-star-lattice)" />
-        </svg>
-        <div className="absolute -left-48 -top-24 size-[40rem] rounded-full bg-blue-fantastic-light/30 blur-[130px]" />
+            <div className="absolute -left-48 -top-24 size-[40rem] rounded-full bg-blue-fantastic-light/30 blur-[130px]" />
         <div className="absolute -bottom-32 -right-40 size-[42rem] rounded-full bg-truffle/25 blur-[130px]" />
         <div className="absolute bottom-0 right-10 size-[22rem] rounded-full bg-burning-flame/12 blur-[110px]" />
 
@@ -295,7 +271,6 @@ export default function ContactSection({
         >
           Hello
         </span>
-      </div>
 
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         <motion.div

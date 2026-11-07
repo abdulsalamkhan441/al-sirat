@@ -31,19 +31,15 @@ const NAV_ITEMS: NavItem[] = [
   {
     label: "Home",
     href: "/",
-    children: [
-      { label: "Overview", href: "/#overview" },
-      { label: "Announcements", href: "/#announcements" },
-    ],
   },
   { label: "Who We Are", href: "/aboutus" },
   {
     label: "Services",
     href: "/services",
     children: [
-      { label: "Prayer Times", href: "/services/prayer-times" },
-      { label: "Islamic Education", href: "/services/education" },
-      { label: "Community Support", href: "/services/community-support" },
+      { label: "Programs", href: "/programs" },
+      { label: "Sports", href: "/sports" },
+      { label: "rental services", href: "/rental" },
     ],
   },
   {

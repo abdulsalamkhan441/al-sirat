@@ -77,8 +77,12 @@ export default function FAQSection() {
     <section
       id="faq"
       aria-labelledby="faq-heading"
-      className="relative px-4 pb-10 pt-20 text-palladian sm:px-6 sm:pt-24 lg:px-8 lg:pt-28"
+      className="relative isolate px-4 pb-10 pt-20 text-palladian sm:px-6 sm:pt-24 lg:px-8 lg:pt-28"
     >
+      <div className="absolute -left-48 -top-24 size-[40rem] rounded-full bg-blue-fantastic-light/30 blur-[130px]" />
+        <div className="absolute -bottom-32 -right-40 size-[42rem] rounded-full bg-truffle/25 blur-[130px]" />
+        <div className="absolute bottom-0 left-1/4 size-[22rem] rounded-full bg-burning-flame/12 blur-[110px]" />
+
       <motion.div
         variants={container}
         initial="hidden"

@@ -189,7 +189,7 @@ export default function EveryoneSection() {
   return (
     <section
       aria-labelledby="everyone-heading"
-      className="relative isolate overflow-hidden bg-linear-to-b from-blue-fantastic-dark via-abyssal to-abyssal-dark pb-16 pt-12 text-palladian sm:pb-20 lg:pb-24 lg:pt-16"
+      className="relative isolate overflow-hidden pb-16 pt-12 text-palladian sm:pb-20 lg:pb-24 lg:pt-16"
     >
       <style>{`
         @property --dial-sweep { syntax: "<angle>"; inherits: false; initial-value: 0deg; }

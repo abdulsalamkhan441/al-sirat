@@ -2,6 +2,7 @@
 
 import Footer from "@/components/common/footer";
 import SectionBlend from "@/components/common/sectionblend";
+import PageBackground from "@/components/sports/pagebackground";
 import AboutSection from "@/components/home/aboutus";
 import BlogSection from "@/components/home/blog";
 import ContactSection from "@/components/home/contact";
@@ -16,25 +17,20 @@ import RadialAboutSection from "@/components/home/whyus";
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-palladian-light text-abyssal">
+    <main className="relative isolate min-h-screen overflow-hidden text-abyssal">
+      <PageBackground />
       <HeroSection/>
       <AboutSection/>
       <RadialAboutSection/>
       <SectionBlend/>
       <ServicesSection/>
-      <SectionBlend/>
       <BentoTestimonialsSection/>
-      <SectionBlend/>
       <BlogSection/>
-      <SectionBlend/>
       <ContactSection/>
-      <SectionBlend/>
       <CTASection/>
       <SectionBlend/>
-      <div className="relative isolate bg-linear-to-b from-abyssal-dark via-abyssal to-abyssal-dark">
-        <FAQSection />
-        <Footer />
-      </div>
+      <FAQSection />
+      <Footer />
     </main>
   );
 }

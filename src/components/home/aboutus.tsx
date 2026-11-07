@@ -122,7 +122,7 @@ export default function AboutSection() {
   return (
     <section
       aria-labelledby="about-heading"
-      className="relative isolate overflow-hidden bg-linear-to-b from-abyssal-dark via-abyssal to-blue-fantastic-dark py-20 text-palladian sm:py-24 lg:py-32"
+      className="relative isolate overflow-hidden py-20 text-palladian sm:py-24 lg:py-32"
     >
       {/* Keyframes kept local so this file is self-contained */}
       <style>{`
