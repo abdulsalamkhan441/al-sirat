@@ -23,7 +23,7 @@ const SOCIALS = [
 
 const LINKS = [
   { label: "Home", href: "/" },
-  { label: "Who we are", href: "/about" },
+  { label: "Who we are", href: "/aboutus" },
   { label: "Services", href: "/services" },
   { label: "Blog", href: "/blog" },
   { label: "Events", href: "/events" },
