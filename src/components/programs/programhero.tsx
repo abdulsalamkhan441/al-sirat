@@ -25,7 +25,7 @@ import {
 /* -------------------------------------------------------------------------- */
 
 /** Put your photo in /public/images/ and update this path. */
-const HERO_IMAGE = "/images/programs-hero.jpg";
+const HERO_IMAGE = "/programs/4.jpg";
 
 const KEY_DETAILS: { Icon: LucideIcon; title: string; text: string }[] = [
   { Icon: Wrench, title: "Practical skills", text: "Learn by doing, not just listening." },

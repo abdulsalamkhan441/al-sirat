@@ -43,15 +43,10 @@ const NAV_ITEMS: NavItem[] = [
     ],
   },
   {
-    label: "Pages",
-    href: "/pages",
-    children: [
-      { label: "Events", href: "/events" },
-      { label: "Gallery", href: "/gallery" },
-      { label: "FAQs", href: "/faqs" },
-    ],
+    label: "Events",
+    href: "/events",
   },
-  { label: "Blog", href: "/blog" },
+  { label: "Donation", href: "/donation" },
   { label: "Contact Us", href: "/contact" },
 ];
 

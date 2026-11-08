@@ -13,10 +13,10 @@ export default function Programs() {
       <PageBackground/>
       <Navbar />
       <ProgramsHero />
-        <ProgramsExplorer />
-        <ProgramsCatalog />
-        <LearningOptions />
-        <Footer />
+      <ProgramsExplorer />
+      <ProgramsCatalog />
+      <LearningOptions />
+      <Footer />
     </main>
   );
 }
