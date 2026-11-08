@@ -29,6 +29,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaTwitter } from "react-icons/fa";
+import { sendContactEmail } from "@/lib/email"; // Import your EmailJS helper
 
 /* -------------------------------------------------------------------------- */
 /*  Content (placeholders, swap for real details)                             */
@@ -186,10 +187,9 @@ function InfoRow({
 /* -------------------------------------------------------------------------- */
 
 export default function ContactSection({
-  onSubmit,
+  sourcePage = "Contact Page",
 }: {
-  /** Plug in your API call. Throw to show the error state. */
-  onSubmit?: (data: FormData) => Promise<void>;
+  sourcePage?: string;
 }) {
   const reduce = useReducedMotion();
 
@@ -229,8 +229,14 @@ export default function ContactSection({
 
     setStatus("sending");
     try {
-      if (onSubmit) await onSubmit(data);
-      else await new Promise((r) => setTimeout(r, 1100)); // demo delay
+      // Send real data through EmailJS handler
+      await sendContactEmail({
+        name: data.name.trim(),
+        email: data.email.trim(),
+        topic: data.topic,
+        message: data.message.trim(),
+        sourcePage: sourcePage,
+      });
       setStatus("sent");
     } catch {
       setStatus("error");
@@ -260,17 +266,16 @@ export default function ContactSection({
       aria-labelledby="contact-heading"
       className="relative isolate py-20 text-palladian sm:py-24 lg:py-28"
     >
-            <div className="absolute -left-48 -top-24 size-[40rem] rounded-full bg-blue-fantastic-light/30 blur-[130px]" />
-        <div className="absolute -bottom-32 -right-40 size-[42rem] rounded-full bg-truffle/25 blur-[130px]" />
-        <div className="absolute bottom-0 right-10 size-[22rem] rounded-full bg-burning-flame/12 blur-[110px]" />
+      <div className="absolute -left-48 -top-24 size-[40rem] rounded-full bg-blue-fantastic-light/30 blur-[130px]" />
+      <div className="absolute -bottom-32 -right-40 size-[42rem] rounded-full bg-truffle/25 blur-[130px]" />
+      <div className="absolute bottom-0 right-10 size-[22rem] rounded-full bg-burning-flame/12 blur-[110px]" />
 
-        {/* ghost word, same treatment as "Stories" */}
-        <span
-          className="absolute -bottom-6 right-4 hidden select-none text-[13rem] font-semibold leading-none tracking-tight text-transparent lg:block"
-          style={{ WebkitTextStroke: "1px rgba(238,233,223,0.06)" }}
-        >
-          Hello
-        </span>
+      <span
+        className="absolute -bottom-6 right-4 hidden select-none text-[13rem] font-semibold leading-none tracking-tight text-transparent lg:block"
+        style={{ WebkitTextStroke: "1px rgba(238,233,223,0.06)" }}
+      >
+        Hello
+      </span>
 
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -503,7 +508,9 @@ export default function ContactSection({
                       aside={
                         <span
                           className={`text-[11px] tabular-nums transition-colors ${
-                            data.message.length >= MAX_MESSAGE - 40 ? "text-burning-flame" : "text-oatmeal"
+                            data.message.length >= MAX_MESSAGE
+                              ? "text-burning-flame"
+                              : "text-oatmeal"
                           }`}
                         >
                           {data.message.length}/{MAX_MESSAGE}

@@ -25,6 +25,7 @@ import {
   Zap,
   type LucideIcon,
 } from "lucide-react";
+import SportJoinModal, { type JoinSport, type SportSignup } from "./sportsjoinmodel";
 
 /* -------------------------------------------------------------------------- */
 /*  Content (placeholders, swap for real details)                             */
@@ -84,11 +85,22 @@ const TABS: { id: "all" | GroupId; label: string }[] = [
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
+const toJoin = (s: Sport): JoinSport => ({
+  id: s.id,
+  title: s.title,
+  groupLabel: GROUPS[s.group].label,
+  groupBlurb: GROUPS[s.group].blurb,
+  tone: GROUPS[s.group].tone,
+  Icon: s.Icon,
+  focus: s.focus,
+  photo: s.photo,
+});
+
 /* -------------------------------------------------------------------------- */
 /*  Building blocks                                                           */
 /* -------------------------------------------------------------------------- */
 
-function SportCard({ s, i, reduce }: { s: Sport; i: number; reduce: boolean }) {
+function SportCard({ s, i, reduce, onJoin }: { s: Sport; i: number; reduce: boolean; onJoin: (s: Sport) => void }) {
   const [bad, setBad] = useState(false);
   const g = GROUPS[s.group];
   return (
@@ -98,7 +110,12 @@ function SportCard({ s, i, reduce }: { s: Sport; i: number; reduce: boolean }) {
       animate={{ opacity: 1, y: 0, scale: 1, transition: { duration: reduce ? 0 : 0.55, ease: EASE, delay: reduce ? 0 : Math.min(i, 7) * 0.05 } }}
       exit={{ opacity: 0, scale: reduce ? 1 : 0.95, transition: { duration: reduce ? 0 : 0.2 } }}
       whileHover={reduce ? undefined : { y: -6 }}
-      className="group relative aspect-[4/5] overflow-hidden rounded-3xl border border-palladian/[0.12] bg-abyssal-dark shadow-xl shadow-abyssal-dark/40 transition-colors duration-300 hover:border-burning-flame/40"
+      onClick={(e) => {
+        // the whole card opens the sign-up; focus the button first so focus returns to it on close
+        e.currentTarget.querySelector<HTMLElement>("button")?.focus();
+        onJoin(s);
+      }}
+      className="group relative aspect-[4/5] cursor-pointer overflow-hidden rounded-3xl border border-palladian/[0.12] bg-abyssal-dark shadow-xl shadow-abyssal-dark/40 transition-colors duration-300 hover:border-burning-flame/40"
     >
       <div className={`absolute inset-0 bg-linear-to-br ${g.tone}`}>
         <s.Icon className="absolute left-1/2 top-[38%] size-16 -translate-x-1/2 -translate-y-1/2 text-palladian/25" aria-hidden="true" />
@@ -131,13 +148,14 @@ function SportCard({ s, i, reduce }: { s: Sport; i: number; reduce: boolean }) {
           ))}
         </ul>
         <div className="mt-4 flex items-center justify-between">
-          <a
-            href="#contact"
+          <button
+            type="button"
+            aria-haspopup="dialog"
             aria-label={`Join ${s.title}`}
-            className="text-sm font-medium text-palladian after:absolute after:inset-0 after:rounded-3xl focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-burning-flame"
+            className="rounded text-sm font-medium text-palladian focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burning-flame"
           >
             Join in
-          </a>
+          </button>
           <span className="grid size-10 place-items-center rounded-full border border-palladian/25 bg-abyssal-dark/50 text-palladian transition-all duration-300 group-hover:rotate-45 group-hover:border-burning-flame group-hover:bg-burning-flame group-hover:text-abyssal">
             <ArrowUpRight className="size-4" aria-hidden="true" />
           </span>
@@ -151,9 +169,15 @@ function SportCard({ s, i, reduce }: { s: Sport; i: number; reduce: boolean }) {
 /*  Section                                                                   */
 /* -------------------------------------------------------------------------- */
 
-export default function SportsPrograms() {
+export default function SportsPrograms({
+  onJoin,
+}: {
+  /** Plug in your API call for the sign-up form. Throw to show the error state. */
+  onJoin?: (r: SportSignup) => Promise<void>;
+}) {
   const reduce = !!useReducedMotion();
   const [tab, setTab] = useState<"all" | GroupId>("all");
+  const [joining, setJoining] = useState<Sport | null>(null);
 
   const list = useMemo(() => SPORTS.filter((s) => tab === "all" || s.group === tab), [tab]);
   const count = (id: "all" | GroupId) => (id === "all" ? SPORTS.length : SPORTS.filter((s) => s.group === id).length);
@@ -273,13 +297,16 @@ export default function SportsPrograms() {
             <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               <AnimatePresence mode="popLayout" initial>
                 {list.map((s, i) => (
-                  <SportCard key={s.id} s={s} i={i} reduce={reduce} />
+                  <SportCard key={s.id} s={s} i={i} reduce={reduce} onJoin={setJoining} />
                 ))}
               </AnimatePresence>
             </ul>
           </div>
         </motion.div>
       </div>
+
+      {/* Blurred-background sign-up modal: sport info on one side, form on the other */}
+      <SportJoinModal sport={joining ? toJoin(joining) : null} onClose={() => setJoining(null)} onSubmit={onJoin} />
     </section>
   );
 }

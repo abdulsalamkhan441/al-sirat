@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@emailjs/browser": "^5.0.3",
+    "@stripe/stripe-js": "^10.2.1",
     "clsx": "^2.1.1",
     "framer-motion": "^13.4.6",
     "lucide-react": "^1.49.0",
@@ -17,6 +19,7 @@
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "react-icons": "^5.7.0",
+    "stripe": "^23.1.0",
     "tailwind-merge": "^3.7.0"
   },
   "devDependencies": {

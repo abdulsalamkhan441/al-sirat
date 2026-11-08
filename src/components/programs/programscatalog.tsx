@@ -34,6 +34,7 @@ import {
   Zap,
   type LucideIcon,
 } from "lucide-react";
+import ProgramEnrollModal, { type EnrolRequest, type EnrollProgram } from "./programenrollmodal";
 
 /* -------------------------------------------------------------------------- */
 /*  Content                                                                   */
@@ -182,6 +183,20 @@ const PROGRAMS: Program[] = [
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
+const toEnroll = (p: Program): EnrollProgram => ({
+  id: p.id,
+  title: p.title,
+  categoryLabel: CATEGORIES[p.cat].label,
+  tone: CATEGORIES[p.cat].tone,
+  Icon: p.Icon,
+  line: p.line,
+  focus: p.focus,
+  audience: p.audience,
+  formats: p.formats,
+  cert: p.cert,
+  photo: p.photo,
+});
+
 /* -------------------------------------------------------------------------- */
 /*  Building blocks                                                           */
 /* -------------------------------------------------------------------------- */
@@ -238,7 +253,7 @@ function Pill({ children }: { children: ReactNode }) {
   );
 }
 
-function ProgramCard({ p, i, reduce }: { p: Program; i: number; reduce: boolean }) {
+function ProgramCard({ p, i, reduce, onEnquire }: { p: Program; i: number; reduce: boolean; onEnquire: (p: Program) => void }) {
   const cat = CATEGORIES[p.cat];
   return (
     <motion.li
@@ -291,16 +306,18 @@ function ProgramCard({ p, i, reduce }: { p: Program; i: number; reduce: boolean 
               </li>
             ))}
           </ul>
-          <a
-            href="#contact"
+          <button
+            type="button"
+            onClick={() => onEnquire(p)}
+            aria-haspopup="dialog"
             aria-label={`Enquire about ${p.title}`}
-            className="group/cta mt-5 flex items-center justify-between gap-3 rounded-full bg-palladian/5 py-1.5 pl-5 pr-1.5 text-sm font-medium text-palladian transition-colors hover:bg-burning-flame hover:text-abyssal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burning-flame"
+            className="group/cta mt-5 flex w-full items-center justify-between gap-3 rounded-full bg-palladian/5 py-1.5 pl-5 pr-1.5 text-left text-sm font-medium text-palladian transition-colors hover:bg-burning-flame hover:text-abyssal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burning-flame"
           >
             Enquire
             <span className="grid size-8 place-items-center rounded-full bg-abyssal text-burning-flame transition-transform duration-300 group-hover/cta:rotate-45">
               <ArrowUpRight className="size-4" aria-hidden="true" />
             </span>
-          </a>
+          </button>
         </div>
       </article>
     </motion.li>
@@ -311,13 +328,19 @@ function ProgramCard({ p, i, reduce }: { p: Program; i: number; reduce: boolean 
 /*  Section                                                                   */
 /* -------------------------------------------------------------------------- */
 
-export default function ProgramsCatalog() {
+export default function ProgramsCatalog({
+  onEnrol,
+}: {
+  /** Plug in your API call for the enrolment form. Throw to show the error state. */
+  onEnrol?: (r: EnrolRequest) => Promise<void>;
+}) {
   const reduce = !!useReducedMotion();
   const [q, setQ] = useState("");
   const [cat, setCat] = useState<"all" | CatId>("all");
   const [fmt, setFmt] = useState<"all" | Format>("all");
   const [aud, setAud] = useState<"all" | Audience>("all");
   const [expanded, setExpanded] = useState(false);
+  const [enrolling, setEnrolling] = useState<Program | null>(null);
 
   const filtered = useMemo(() => {
     const s = q.trim().toLowerCase();
@@ -347,16 +370,17 @@ export default function ProgramsCatalog() {
     <section
       id="programs-list"
       aria-labelledby="catalog-heading"
-      className="relative isolate py-20 text-palladian sm:py-24 lg:py-28"
+      className="relative isolate overflow-hidden py-20 text-palladian sm:py-24 lg:py-28"
     >
-      <div className="absolute -right-48 -top-24 size-[40rem] rounded-full bg-blue-fantastic-light/30 blur-[130px]" />
-        <div className="absolute -bottom-32 -left-40 size-[42rem] rounded-full bg-truffle/25 blur-[130px]" />
+      {/* Decorative ghost word. The page background is shared (PageBackground), so no glows here. */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
         <span
           className="absolute -top-4 right-4 hidden select-none text-[13rem] font-semibold leading-none tracking-tight text-transparent lg:block"
           style={{ WebkitTextStroke: "1px rgba(238,233,223,0.06)" }}
         >
           Courses
         </span>
+      </div>
 
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.1 }}>
@@ -373,7 +397,7 @@ export default function ProgramsCatalog() {
             </div>
             <p className="max-w-sm text-sm leading-relaxed text-palladian/75 sm:text-base">
               From first steps in AI to trades, languages and family support. Filter by what you
-              need, and we will point you to the right class.
+              need, then enquire and we will point you to the right class.
             </p>
           </motion.div>
 
@@ -419,7 +443,7 @@ export default function ProgramsCatalog() {
               {AUDIENCES.map((a) => <option key={a} value={a}>{a}</option>)}
             </SelectField>
 
-            <div className="px-2 py-1 flex items-end sm:col-span-2 lg:col-span-1">
+            <div className="flex items-end px-2 py-1 sm:col-span-2 lg:col-span-1">
               <button
                 type="button"
                 onClick={clear}
@@ -441,7 +465,7 @@ export default function ProgramsCatalog() {
             <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
               <AnimatePresence mode="popLayout" initial>
                 {displayedPrograms.map((p, i) => (
-                  <ProgramCard key={p.id} p={p} i={i} reduce={reduce} />
+                  <ProgramCard key={p.id} p={p} i={i} reduce={reduce} onEnquire={setEnrolling} />
                 ))}
               </AnimatePresence>
             </ul>
@@ -452,6 +476,7 @@ export default function ProgramsCatalog() {
                 <button
                   type="button"
                   onClick={() => setExpanded(!expanded)}
+                  aria-expanded={expanded}
                   className="group inline-flex items-center gap-3 rounded-full border border-burning-flame/30 bg-burning-flame/10 px-8 py-3.5 text-sm font-semibold text-burning-flame-light shadow-lg shadow-burning-flame/10 transition-all duration-300 hover:bg-burning-flame hover:text-abyssal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burning-flame"
                 >
                   {expanded ? "Show fewer programs" : `See more programs (${filtered.length - 6} more)`}
@@ -488,6 +513,13 @@ export default function ProgramsCatalog() {
           </div>
         </motion.div>
       </div>
+
+      {/* Blurred-background enrolment modal: program info on one side, form on the other */}
+      <ProgramEnrollModal
+        program={enrolling ? toEnroll(enrolling) : null}
+        onClose={() => setEnrolling(null)}
+        onSubmit={onEnrol}
+      />
     </section>
   );
 }

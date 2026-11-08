@@ -15,13 +15,11 @@ import {
 
 import { CATEGORIES, CONTACT_INFO, type CategoryId } from "./contactdata";
 import { Backdrop, EASE, GLASS, Label, OVERLAY_GLASS } from "./contactshared";
+import { sendContactEmail } from "@/lib/email"; // Import your centralized EmailJS handler
 
 /* -------------------------------------------------------------------------- */
 /*  Content (placeholders, swap for real details)                             */
 /* -------------------------------------------------------------------------- */
-
-/** Server route that receives the inquiry and emails the Al Sirat team. Must be created. */
-const CONTACT_ENDPOINT = "/api/contact";
 
 /** Replace with a photo of your own facility. If it fails to load, a gradient shows instead. */
 const FORM_PHOTO =
@@ -166,10 +164,6 @@ export default function ContactForm({
   }
 
   /* ---------- submit ---------- */
-  /**
-   * Posts the inquiry to your server, which should validate it again and email the team.
-   * The honeypot field is sent along so the server can discard bot submissions.
-   */
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     if (status === "loading") return;
@@ -189,21 +183,16 @@ export default function ContactForm({
     setStatus("loading");
     setSubmitError(null);
     try {
-      const res = await fetch(CONTACT_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: values.name.trim(),
-          email: values.email.trim(),
-          phone: values.phone.trim(),
-          category,
-          categoryLabel: current?.label ?? "",
-          organization: needsOrg ? values.organization.trim() : "",
-          message: values.message.trim(),
-          website: values.website,
-        }),
+      // Connect to EmailJS via our centralized utility
+      await sendContactEmail({
+        name: values.name.trim(),
+        email: values.email.trim(),
+        phone: values.phone.trim() || "Not provided",
+        topic: current?.label ?? category,
+        organization: needsOrg ? values.organization.trim() : "N/A",
+        message: values.message.trim(),
+        sourcePage: "Contact Page",
       });
-      if (!res.ok) throw new Error("bad response");
       setStatus("sent");
     } catch {
       setStatus("idle");

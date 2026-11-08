@@ -35,12 +35,12 @@ import {
   Wrench,
   type LucideIcon,
 } from "lucide-react";
+import { sendRentalRequest } from "@/lib/email"; // Import utility
 
 /* -------------------------------------------------------------------------- */
 /*  Content (placeholders, swap for real details)                             */
 /* -------------------------------------------------------------------------- */
 
-/** Unsplash helper. Swap for your own photos. A failed image shows a gradient + icon. */
 const u = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=800&q=70`;
 
 const RENTALS: { id: string; title: string; Icon: LucideIcon; text: string; photo: string; tone: string }[] = [
@@ -55,18 +55,14 @@ const RENTALS: { id: string; title: string; Icon: LucideIcon; text: string; phot
   { id: "occasions", title: "Special occasions", Icon: PartyPopper, text: "Celebrations and milestones made to measure.", photo: u("photo-1519741497674-611481863552"), tone: "from-burning-flame-dark/60 via-blue-fantastic to-abyssal" },
 ];
 
-const MAX_MONTHS = 12; // how far ahead people can look
+const MAX_MONTHS = 12;
 const WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
-
-/* -------------------------------------------------------------------------- */
-/*  Date helpers (local time, so dates never shift by a day)                  */
-/* -------------------------------------------------------------------------- */
 
 type Status = "available" | "booked" | "past";
 export type Inquiry = {
   eventType: string;
-  date: string | null; // YYYY-MM-DD
+  date: string | null;
   dateLabel: string | null;
   flexible: boolean;
   time: string;
@@ -81,7 +77,7 @@ export type Inquiry = {
 type Errors = Partial<Record<"name" | "email" | "date" | "wants", string>>;
 type SendStatus = "idle" | "sending" | "sent" | "error";
 
-const CONTACT = { email: "hello@alsirat.example", phone: "+1 (629) 555-0129", phoneHref: "tel:+16295550129" }; // placeholders
+const CONTACT = { email: "hello@alsirat.example", phone: "+1 (629) 555-0129", phoneHref: "tel:+16295550129" };
 const GUESTS = ["Under 50", "50 to 150", "150 to 300", "300+"];
 const TIMES = ["Morning", "Afternoon", "Evening", "Full day"];
 const SPACES = ["Indoor event space", "Outdoor area", "Classrooms", "Sports & recreation area", "Parking"];
@@ -105,20 +101,13 @@ const toIso = (d: Date) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.
 const fromIso = (s: string) => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
 const fullDate = (d: Date) => new Intl.DateTimeFormat("en-CA", { dateStyle: "full" }).format(d);
 const monthLabel = (y: number, m: number) => new Intl.DateTimeFormat("en-CA", { month: "long", year: "numeric" }).format(new Date(y, m, 1));
-/** Demo pattern, used only when no real `bookedDates` are passed in. */
 const demoBooked = (d: Date) => (d.getDate() * 5 + d.getMonth() * 3) % 9 === 0;
-
-/* -------------------------------------------------------------------------- */
-/*  Section                                                                   */
-/* -------------------------------------------------------------------------- */
 
 export default function FacilityRentals({
   bookedDates,
   onSubmit,
 }: {
-  /** Fully booked dates as "YYYY-MM-DD". Pass these from your backend or CMS. */
   bookedDates?: string[];
-  /** Plug in your API call. Throw to show the error state. */
   onSubmit?: (data: Inquiry) => Promise<void>;
 }) {
   const reduce = !!useReducedMotion();
@@ -131,7 +120,6 @@ export default function FacilityRentals({
   const [focus, setFocus] = useState("");
   const focusNext = useRef(false);
 
-  /* "today" is read on the client only, so server and client markup match */
   useEffect(() => {
     const t = new Date();
     t.setHours(0, 0, 0, 0);
@@ -160,7 +148,6 @@ export default function FacilityRentals({
   while (cells.length % 7) cells.push(null);
   const rows = Array.from({ length: cells.length / 7 }, (_, r) => cells.slice(r * 7, r * 7 + 7));
 
-  /* exactly one day is tabbable (roving tabindex) */
   const prefix = `${view.y}-${pad(view.m + 1)}-`;
   const tabIso = focus.startsWith(prefix)
     ? focus
@@ -206,7 +193,6 @@ export default function FacilityRentals({
   const selectedDate = selected ? fromIso(selected) : null;
   const typeTitle = RENTALS.find((r) => r.id === type)?.title ?? "Not sure yet";
 
-  /* ---------- inquiry form ---------- */
   const [f, setF] = useState<Form>(FORM0);
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [status, setStatus] = useState<SendStatus>("idle");
@@ -242,7 +228,7 @@ export default function FacilityRentals({
       else formRef.current?.querySelector<HTMLElement>(`#inq-${k}`)?.focus();
       return;
     }
-    if (honey) { setStatus("sent"); return; } // bots fill hidden fields: pretend success, send nothing
+    if (honey) { setStatus("sent"); return; } // bots fill hidden fields
 
     const data: Inquiry = {
       ...f,
@@ -252,10 +238,26 @@ export default function FacilityRentals({
       date: selected,
       dateLabel: selectedDate ? fullDate(selectedDate) : null,
     };
+    
     setStatus("sending");
     try {
-      if (onSubmit) await onSubmit(data);
-      else await new Promise((r) => setTimeout(r, 1100)); // demo delay
+      if (onSubmit) {
+        await onSubmit(data);
+      } else {
+        await sendRentalRequest({
+          eventType: data.eventType,
+          dateLabel: data.dateLabel,
+          flexible: data.flexible,
+          time: data.time,
+          guests: data.guests,
+          spaces: data.spaces,
+          wants: data.wants,
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          message: data.message,
+        });
+      }
       setStatus("sent");
     } catch {
       setStatus("error");
@@ -299,7 +301,6 @@ export default function FacilityRentals({
 
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.05 }}>
-          {/* ---------- Heading ---------- */}
           <motion.div variants={rise} className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
             <div>
               <div className="inline-flex items-center gap-2 rounded-full border border-palladian/15 bg-abyssal-dark/50 px-4 py-2 text-[13px] font-medium text-palladian backdrop-blur-md">
@@ -316,7 +317,6 @@ export default function FacilityRentals({
             </p>
           </motion.div>
 
-          {/* ---------- Rental cards ---------- */}
           <ul className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {RENTALS.map((r, i) => (
               <RentalCard
@@ -331,7 +331,6 @@ export default function FacilityRentals({
             ))}
           </ul>
 
-          {/* ---------- Availability + inquiry ---------- */}
           <motion.div variants={rise} id="booking" className="mt-20 scroll-mt-28">
             <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
               <div>
@@ -350,7 +349,6 @@ export default function FacilityRentals({
             </div>
 
             <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-12 lg:gap-6">
-              {/* ===== Calendar ===== */}
               <div className="flex flex-col gap-5 lg:col-span-5">
               <div className="rounded-3xl border border-palladian/[0.12] bg-linear-to-br from-palladian/[0.09] to-palladian/[0.02] p-4 shadow-2xl shadow-abyssal-dark/50 backdrop-blur-xl sm:p-6">
                 <p className="mb-4 text-xs font-medium text-oatmeal">Step 1 &middot; Choose a date</p>
@@ -445,7 +443,6 @@ export default function FacilityRentals({
               <NextSteps reduce={reduce} />
               </div>
 
-              {/* ===== Inquiry form ===== */}
               <div className="relative overflow-hidden rounded-3xl border border-palladian/[0.12] bg-linear-to-br from-palladian/[0.09] to-palladian/[0.02] p-5 shadow-2xl shadow-abyssal-dark/50 backdrop-blur-xl before:absolute before:inset-x-8 before:top-0 before:h-px before:bg-linear-to-r before:from-transparent before:via-palladian/40 before:to-transparent sm:p-8 lg:col-span-7">
                 <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-20 size-64 rounded-full bg-burning-flame/10 blur-3xl" />
                 <AnimatePresence mode="wait" initial={false}>
@@ -500,7 +497,6 @@ export default function FacilityRentals({
                     >
                       <p className="text-xs font-medium text-oatmeal">Step 2 &middot; Tell us about your event</p>
 
-                      {/* date */}
                       <div className="flex flex-col gap-2">
                         <div className={`flex items-center gap-3 rounded-2xl border bg-abyssal-dark/55 px-4 py-3 transition-colors ${show("date") ? "border-truffle-light/70" : "border-palladian/[0.12]"}`}>
                           <span className="grid size-9 shrink-0 place-items-center rounded-full bg-burning-flame/15 text-burning-flame">
@@ -526,7 +522,6 @@ export default function FacilityRentals({
                         <FieldError id="inq-date-error" error={show("date")} />
                       </div>
 
-                      {/* event type */}
                       <div className="flex flex-col gap-2">
                         <label htmlFor="rental-type" className="text-xs font-medium text-palladian/80">Event type</label>
                         <div className="relative">
@@ -625,7 +620,6 @@ export default function FacilityRentals({
                         />
                       </Field>
 
-                      {/* Honeypot: hidden from people, tempting to bots */}
                       <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
                         <label>
                           Leave this empty
@@ -679,10 +673,6 @@ export default function FacilityRentals({
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/*  Card                                                                      */
-/* -------------------------------------------------------------------------- */
-
 function RentalCard({
   r, n, on, reduce, rise, onToggle,
 }: {
@@ -727,10 +717,6 @@ function RentalCard({
     </motion.li>
   );
 }
-
-/* -------------------------------------------------------------------------- */
-/*  Form building blocks                                                      */
-/* -------------------------------------------------------------------------- */
 
 function FieldError({ id, error, className = "" }: { id: string; error?: string; className?: string }) {
   return (
@@ -790,17 +776,12 @@ function Chip({
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/*  Photo + "what happens next" (fills the space beside the long form)        */
-/* -------------------------------------------------------------------------- */
-
 const NEXT_STEPS = [
   "Send your inquiry",
   "We confirm availability and pricing",
   "Lock in your booking",
 ];
 
-/** Swap for a photo of your own facility. A failed image shows a gradient + icon. */
 const NEXT_PHOTO = "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1000&q=70";
 
 function NextSteps({ reduce }: { reduce: boolean }) {
