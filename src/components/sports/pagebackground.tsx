@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 /**
  * One continuous background for a whole page: the star lattice runs the full
@@ -31,6 +32,15 @@ const SIDE = {
 
 export default function PageBackground() {
   const reduce = useReducedMotion();
+  const [showGlows, setShowGlows] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(min-width: 768px)");
+    const update = () => setShowGlows(media.matches && !window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
 
   return (
     <div
@@ -62,7 +72,7 @@ export default function PageBackground() {
       </svg>
 
       {/* glows, repeating down the page and drifting very slowly */}
-      {GLOWS.map((g, i) => (
+      {showGlows && GLOWS.map((g, i) => (
         <motion.div
           key={i}
           style={{ top: g.top }}

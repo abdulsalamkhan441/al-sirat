@@ -83,6 +83,45 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+}
+
+section {
+  min-width: 0;
+}
+
+@media (max-width: 1023px) {
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button:not([role="tab"]),
+  a {
+    touch-action: manipulation;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
 
 /* Hide scrollbars across browsers while keeping scroll functionality */

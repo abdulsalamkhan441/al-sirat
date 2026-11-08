@@ -166,6 +166,7 @@ return (
                 fill
                 priority={index === 0}
                 sizes="100vw"
+                quality={80}
                 className="object-cover object-[72%_center] lg:object-center"
               />
             </motion.div>
@@ -200,7 +201,7 @@ return (
             <motion.h1
               id="hero-heading"
               variants={item}
-              className="mt-6 text-[2.5rem] font-bold leading-[1.08] tracking-tight text-palladian-light sm:text-6xl xl:text-7xl"
+              className="mt-6 max-w-[15ch] text-[2.5rem] font-bold leading-[1.08] tracking-tight text-palladian-light sm:max-w-[16ch] sm:text-6xl md:max-w-[18ch] md:text-6xl xl:text-7xl"
             >
               Shape the World with{" "}
               <span className="block text-burning-flame">Heart&apos;s Concept</span>
@@ -216,7 +217,7 @@ return (
  
             <motion.div
               variants={item}
-              className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-5"
+              className="mt-8 flex flex-col items-start gap-y-5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-8"
             >
               <Link
                 href="/contact"

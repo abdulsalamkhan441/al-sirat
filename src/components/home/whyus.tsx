@@ -322,7 +322,7 @@ export default function EveryoneSection() {
                 >
                   <figure
                     tabIndex={0}
-                    className="group/card absolute h-[var(--ch)] w-[var(--cw)] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[1.1rem] border border-palladian/15 bg-blue-fantastic shadow-xl shadow-abyssal-dark/50 transition-transform duration-500 ease-out hover:scale-110 focus-visible:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burning-flame motion-reduce:transition-none motion-reduce:hover:scale-100"
+                    className="group/card absolute h-[var(--ch)] w-[var(--cw)] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[1.1rem] border border-palladian/15 bg-blue-fantastic shadow-xl shadow-abyssal-dark/50 transition-transform duration-500 ease-out hover:scale-110 focus-visible:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burning-flame motion-reduce:transition-none motion-reduce:hover:scale-100 sm:h-[var(--ch)] sm:w-[var(--cw)]"
                   >
                     <Image
                       src={p.src}
@@ -331,7 +331,7 @@ export default function EveryoneSection() {
                       sizes="160px"
                       className="object-cover"
                     />
-                    <figcaption className="absolute inset-x-0 bottom-0 translate-y-2 bg-linear-to-t from-abyssal-dark/95 via-abyssal-dark/70 to-transparent px-2 pb-2 pt-8 opacity-0 transition-all duration-300 group-hover/card:translate-y-0 group-hover/card:opacity-100 group-focus-visible/card:translate-y-0 group-focus-visible/card:opacity-100 motion-reduce:transition-none">
+                    <figcaption className="absolute inset-x-0 bottom-0 translate-y-0 bg-linear-to-t from-abyssal-dark/95 via-abyssal-dark/70 to-transparent px-2 pb-2 pt-8 opacity-100 transition-all duration-300 group-hover/card:translate-y-0 group-hover/card:opacity-100 group-focus-visible/card:translate-y-0 group-focus-visible/card:opacity-100 motion-reduce:transition-none lg:translate-y-2 lg:opacity-0 lg:group-hover/card:opacity-100">
                       <p className="hidden text-[11px] leading-snug text-palladian sm:block">
                         “{p.quote}”
                       </p>

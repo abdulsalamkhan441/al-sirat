@@ -319,7 +319,7 @@ function EnrolForm({ p, onClose, onSubmit }: { p: EnrollProgram; onClose: () => 
           transition={{ duration: 0.25 }}
           className="relative flex min-h-full flex-col [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
         >
-          <div className="space-y-6 px-5 pb-6 pt-6 sm:px-8 sm:pt-8">
+          <div className="space-y-6 px-5 pb-6 pt-20 sm:px-8 sm:pt-20 md:pt-8">
             <div className="pr-12">
               <p className="text-xs font-medium text-burning-flame">Enrolment request</p>
               <h3 className="mt-1 text-xl font-semibold tracking-tight text-palladian-light">Tell us what you need</h3>

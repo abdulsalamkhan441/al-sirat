@@ -91,7 +91,6 @@ export default function Footer({
                   src={mainLogoSrc}
                   alt={mainLogoAlt}
                   fill
-                  priority
                   className="object-contain"
                 />
               </div>
