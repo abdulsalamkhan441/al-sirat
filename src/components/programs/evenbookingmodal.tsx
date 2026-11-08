@@ -27,7 +27,7 @@ import {
   Send,
   X,
 } from "lucide-react";
-import { fmtLong, fmtMoney, fmtRange, type Audience, type EventItem } from "./events-data";
+import { fmtLong, fmtMoney, fmtRange, type Audience, type EventItem } from "../events/events";
 
 /* -------------------------------------------------------------------------- */
 /*  Types                                                                     */
