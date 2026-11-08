@@ -87,7 +87,7 @@ export default async function DonationSuccessPage({
                 <Heart className="size-4" aria-hidden="true" />
                 Return home
               </Link>
-              <Link href="/donate" className={ghostBtn}>
+              <Link href="/donation" className={ghostBtn}>
                 Give again
               </Link>
             </div>
@@ -122,7 +122,7 @@ export default async function DonationSuccessPage({
               email for a receipt, or contact us and we will help.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <Link href="/donate" className={primaryBtn}>
+              <Link href="/donation" className={primaryBtn}>
                 <Heart className="size-4" aria-hidden="true" />
                 Go to donate
               </Link>

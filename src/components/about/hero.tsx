@@ -228,7 +228,7 @@ export default function AboutHero() {
 
             <motion.div variants={item} className="mt-8">
               <Link
-                href="/services"
+                href="/programs"
                 className="group inline-flex items-center gap-4 rounded-full bg-burning-flame py-1.5 pl-6 pr-1.5 text-sm font-bold text-abyssal shadow-lg shadow-burning-flame/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-burning-flame-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burning-flame focus-visible:ring-offset-2 focus-visible:ring-offset-abyssal-dark motion-reduce:transition-colors motion-reduce:hover:translate-y-0"
               >
                 Explore Our Programs

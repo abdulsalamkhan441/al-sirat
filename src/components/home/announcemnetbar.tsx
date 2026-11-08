@@ -40,7 +40,7 @@ export default function AnnouncementBar() {
       </Link>
 
       <Link
-        href="/donate"
+        href="/donation"
         className="shrink-0 rounded-md bg-burning-flame px-3 py-1 text-xs font-bold text-abyssal transition-colors hover:bg-burning-flame-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-palladian focus-visible:ring-offset-2 focus-visible:ring-offset-blue-fantastic"
       >
         Donate Now

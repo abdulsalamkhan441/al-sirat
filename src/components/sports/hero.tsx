@@ -228,7 +228,7 @@ export default function SportsHero() {
                 </span>
               </a>
               <a
-                href="#contact"
+                href="/contact"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-palladian/20 bg-abyssal-dark/40 px-6 py-3.5 text-sm font-medium text-palladian backdrop-blur-md transition-colors hover:border-burning-flame/50 hover:text-burning-flame focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burning-flame"
               >
                 <MessageCircle className="size-4" aria-hidden="true" />

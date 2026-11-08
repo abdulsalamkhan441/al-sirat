@@ -35,7 +35,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Who We Are", href: "/aboutus" },
   {
     label: "Services",
-    href: "/services",
+    href: "/programs",
     children: [
       { label: "Programs", href: "/programs" },
       { label: "Sports", href: "/sports" },
@@ -325,7 +325,7 @@ export default function Navbar() {
             </a>
 
             <Link
-              href="/explore"
+              href="/programs"
               className={`group inline-flex items-center gap-3 rounded-full bg-burning-flame py-1.5 pl-5 pr-1.5 text-sm font-bold text-abyssal shadow-lg shadow-burning-flame/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-burning-flame-light hover:shadow-burning-flame/30 motion-reduce:transition-none motion-reduce:hover:translate-y-0 ${focusRing}`}
             >
               Explore More
@@ -449,7 +449,7 @@ export default function Navbar() {
                     {PHONE_DISPLAY}
                   </a>
                   <Link
-                    href="/explore"
+                    href="/programs"
                     className="inline-flex items-center justify-center gap-2 rounded-full bg-burning-flame py-3 text-sm font-bold text-abyssal transition-colors hover:bg-burning-flame-light"
                   >
                     Explore More

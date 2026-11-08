@@ -171,7 +171,7 @@ export default function CTASection() {
             >
               {/* Primary */}
               <Link
-                href="/join"
+                href="/contact"
                 className="group inline-flex items-center justify-between gap-4 rounded-full bg-burning-flame py-2 pl-6 pr-2 text-sm font-semibold text-abyssal shadow-xl shadow-burning-flame/15 transition-[background-color,box-shadow,transform] duration-300 hover:bg-burning-flame-light hover:shadow-burning-flame/30 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burning-flame-light focus-visible:ring-offset-2 focus-visible:ring-offset-abyssal"
               >
                 Join us today
@@ -182,7 +182,7 @@ export default function CTASection() {
 
               {/* Secondary */}
               <Link
-                href="/about"
+                href="/aboutus"
                 className="group inline-flex items-center justify-center gap-2 rounded-full border border-palladian/15 bg-palladian/5 px-6 py-3.5 text-sm font-medium text-palladian backdrop-blur-md transition-all duration-300 hover:border-burning-flame/50 hover:bg-palladian/10 hover:text-burning-flame active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burning-flame"
               >
                 Learn more

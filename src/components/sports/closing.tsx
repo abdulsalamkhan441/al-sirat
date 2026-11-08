@@ -160,7 +160,7 @@ export default function SportsClosing() {
           {/* CTAs */}
           <motion.div variants={rise} className="mt-12 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
             <a
-              href="#contact"
+              href="/contact"
               className="group inline-flex items-center justify-between gap-3 rounded-full bg-burning-flame py-2 pl-7 pr-2 text-sm font-semibold text-abyssal shadow-xl shadow-burning-flame/15 transition-[background-color,box-shadow] duration-300 hover:bg-burning-flame-light hover:shadow-burning-flame/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burning-flame-light focus-visible:ring-offset-2 focus-visible:ring-offset-abyssal sm:min-w-[220px]"
             >
               Join a sport today
@@ -169,7 +169,7 @@ export default function SportsClosing() {
               </span>
             </a>
             <a
-              href="#contact"
+              href="/contact"
               className="inline-flex items-center justify-center gap-2 rounded-full border border-palladian/15 bg-palladian/5 px-6 py-3.5 text-sm font-medium text-palladian transition-colors hover:border-burning-flame/50 hover:text-burning-flame focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burning-flame"
             >
               <MessageCircle className="size-4" aria-hidden="true" />

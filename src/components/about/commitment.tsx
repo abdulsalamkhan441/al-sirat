@@ -301,7 +301,7 @@ export default function Commitments() {
 
           <motion.div variants={rise} className="mt-8">
             <Link
-              href="/join"
+              href="/contact"
               className="group inline-flex items-center gap-3 rounded-xl border border-palladian/15 bg-palladian/[0.06] px-5 py-3 text-sm font-medium text-palladian shadow-lg shadow-abyssal-dark/40 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-burning-flame/50 hover:bg-palladian/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burning-flame focus-visible:ring-offset-2 focus-visible:ring-offset-abyssal-dark motion-reduce:hover:translate-y-0"
             >
               Get involved

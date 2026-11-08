@@ -219,7 +219,7 @@ return (
               className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-5"
             >
               <Link
-                href="/join"
+                href="/contact"
                 className="group inline-flex items-center gap-4 rounded-full border border-palladian/15 bg-abyssal-dark/60 py-2 pl-6 pr-2 text-sm font-semibold text-palladian shadow-xl shadow-abyssal-dark/30 backdrop-blur-md transition-all duration-300 hover:border-burning-flame/50 hover:bg-abyssal-dark/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burning-flame focus-visible:ring-offset-2 focus-visible:ring-offset-abyssal-dark"
               >
                 Join Us Today

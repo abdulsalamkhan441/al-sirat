@@ -16,16 +16,15 @@ const CONTACT = {
 };
 
 const SOCIALS = [
-  { label: "Facebook", href: "#" },
-  { label: "Instagram", href: "#" },
-  { label: "LinkedIn", href: "#" },
+  { label: "Facebook", href: "https://www.facebook.com/" },
+  { label: "Instagram", href: "https://www.instagram.com/" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/" },
 ];
 
 const LINKS = [
   { label: "Home", href: "/" },
   { label: "Who we are", href: "/aboutus" },
-  { label: "Services", href: "/services" },
-  { label: "Blog", href: "/blog" },
+  { label: "Services", href: "/programs" },
   { label: "Events", href: "/events" },
   { label: "Contact", href: "/contact" },
 ];
@@ -153,7 +152,7 @@ export default function Footer({
               className="order-1 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center lg:order-2 lg:col-span-4 lg:flex-col"
             >
               <Link
-                href="/join"
+                href="/contact"
                 className="group inline-flex items-center justify-between gap-4 rounded-full bg-burning-flame py-2 pl-6 pr-2 text-sm font-semibold text-abyssal shadow-xl shadow-burning-flame/15 transition-[background-color,box-shadow,transform] duration-300 hover:bg-burning-flame-light hover:shadow-burning-flame/30 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burning-flame-light focus-visible:ring-offset-2 focus-visible:ring-offset-abyssal-dark"
               >
                 Join us today
@@ -162,7 +161,7 @@ export default function Footer({
                 </span>
               </Link>
               <Link
-                href="/donate"
+                href="/donation"
                 className="group inline-flex items-center justify-between gap-4 rounded-full border border-truffle-light/40 bg-truffle/25 py-2 pl-6 pr-2 text-sm font-semibold text-palladian-light transition-[background-color,border-color,transform] duration-300 hover:border-truffle-light hover:bg-truffle/40 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burning-flame"
               >
                 Donate
@@ -200,8 +199,6 @@ export default function Footer({
             className="mt-12 flex flex-wrap items-center justify-center gap-3 border-t border-palladian/[0.06] pt-6 sm:justify-end"
           >
             <div className="flex items-center gap-4 rounded-full border border-palladian/10 bg-palladian/5 px-5 py-2 text-xs font-medium text-palladian/80 backdrop-blur-md">
-              <Link href="/cookies" className="hover:text-burning-flame">Cookies policy</Link>
-              <Link href="/privacy" className="hover:text-burning-flame">Privacy policy</Link>
               <span>&copy;2026</span>
             </div>
           </motion.div>

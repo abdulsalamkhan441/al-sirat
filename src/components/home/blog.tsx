@@ -149,7 +149,7 @@ export default function BlogSection() {
 
           <motion.div variants={rise} className="relative">
             <Link
-              href="/blog"
+              href="/contact"
               className="group inline-flex items-center gap-2 rounded-full border border-palladian/20 bg-palladian/5 px-5 py-2.5 text-sm font-medium text-palladian backdrop-blur-md transition-colors duration-300 hover:border-burning-flame hover:bg-burning-flame hover:text-abyssal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burning-flame focus-visible:ring-offset-2 focus-visible:ring-offset-abyssal"
             >
               Browse all articles

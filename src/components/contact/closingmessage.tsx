@@ -124,7 +124,7 @@ export default function ClosingMessage() {
                 </span>
               </a>
               <Link
-                href="/donate"
+                href="/donation"
                 className={`group inline-flex w-full items-center justify-center gap-2 rounded-full border border-palladian/[0.16] bg-abyssal-dark/40 px-7 py-3.5 text-sm font-semibold text-palladian shadow-xl shadow-abyssal-dark/40 backdrop-blur-xl transition-colors duration-300 hover:border-burning-flame hover:text-burning-flame focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burning-flame sm:w-auto`}
               >
                 <Heart className="size-4 text-burning-flame" aria-hidden="true" />

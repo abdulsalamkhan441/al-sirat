@@ -503,7 +503,7 @@ export default function ProgramsCatalog({
                     <button type="button" onClick={clear} className="rounded-full bg-burning-flame px-5 py-2.5 text-sm font-semibold text-abyssal transition-colors hover:bg-burning-flame-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burning-flame-light">
                       Clear filters
                     </button>
-                    <a href="#contact" className="rounded-full border border-palladian/15 bg-palladian/5 px-5 py-2.5 text-sm font-medium text-palladian transition-colors hover:border-burning-flame/50 hover:text-burning-flame focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burning-flame">
+                    <a href="/contact" className="rounded-full border border-palladian/15 bg-palladian/5 px-5 py-2.5 text-sm font-medium text-palladian transition-colors hover:border-burning-flame/50 hover:text-burning-flame focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burning-flame">
                       Ask an advisor
                     </a>
                   </div>
